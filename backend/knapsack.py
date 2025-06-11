@@ -250,7 +250,7 @@ class KnapsackOptimizer:
                 })
                 continue
 
-            if item['weight'] <= remaining_weight:
+            if item['weight'] <= remaining_weight and remaining_weight > 0:
                 # Take the whole item
                 selected_items.append({
                     'name': item['name'],
@@ -270,9 +270,11 @@ class KnapsackOptimizer:
                     'value_gained': item['nutritional_value'],
                     'remaining_capacity': remaining_weight
                 })
-            else:
+            elif remaining_weight > 0:
                 # Take a fraction of the item
                 fraction = remaining_weight / item['weight']
+                if fraction > 1:
+                    fraction = 1.0
                 fractional_value = item['nutritional_value'] * fraction
                 selected_items.append({
                     'name': item['name'],

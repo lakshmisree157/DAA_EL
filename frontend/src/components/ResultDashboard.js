@@ -150,7 +150,7 @@ const ResultDashboard = ({ results, maxWeight }) => {
                       <td className="border p-2">{item.name}</td>
                       <td className="border p-2 text-right">{item.weight?.toFixed(2) ?? '0.00'}</td>
                       <td className="border p-2 text-right">{item.nutritional_value?.toFixed(2) ?? '0.00'}</td>
-                      <td className="border p-2 text-right">{(item.fraction_selected !== undefined && item.fraction_selected !== null) ? item.fraction_selected.toFixed(2) : '1.00'}</td>
+<td className="border p-2 text-right">{(item.fraction !== undefined && item.fraction !== null) ? item.fraction.toFixed(2) : '1.00'}</td>
                     </tr>
                   ))}
                 </tbody>

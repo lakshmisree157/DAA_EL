@@ -7,13 +7,15 @@ class KnapsackOptimizer:
     def __init__(self) -> None:
         pass
 
-    def optimize_comparison(self, items: List[Dict[str, Any]], max_weight: float) -> Dict[str, Any]:
+    def optimize_comparison(self, items: List[Dict[str, Any]], max_weight: float, max_transport_duration: Optional[float] = None, allowed_storage_types: Optional[List[str]] = None) -> Dict[str, Any]:
         """
         Main method to compare Brute Force vs Hybrid (0/1 + Fractional) approach.
         
         Args:
-            items: List of food items with properties (name, weight, nutritional_value, is_bulk)
+            items: List of food items with properties (name, weight, nutritional_value, is_bulk, transport_duration, storage_requirements)
             max_weight: Maximum cargo weight capacity
+            max_transport_duration: Optional max allowed transport duration (days)
+            allowed_storage_types: Optional list of allowed storage types
 
         Returns:
             Dictionary containing comparison results between two approaches
@@ -23,14 +25,33 @@ class KnapsackOptimizer:
         if not isinstance(max_weight, (int, float)) or max_weight < 0:
             raise ValueError("max_weight must be a non-negative number.")
 
+        # Filter items based on max_transport_duration and allowed_storage_types
+        filtered_items = []
+        for item in items:
+            transport_ok = True
+            storage_ok = True
+
+            if max_transport_duration is not None:
+                transport_duration = item.get('transport_duration')
+                if transport_duration is not None and transport_duration > max_transport_duration:
+                    transport_ok = False
+
+            if allowed_storage_types is not None and len(allowed_storage_types) > 0:
+                storage_req = item.get('storage_requirements')
+                if storage_req is not None and storage_req not in allowed_storage_types:
+                    storage_ok = False
+
+            if transport_ok and storage_ok:
+                filtered_items.append(item)
+
         # Approach 1: Brute Force (all items treated as packed/indivisible)
-        brute_force_result = self.brute_force_knapsack_with_backtrack(items, max_weight)
+        brute_force_result = self.brute_force_knapsack_with_backtrack(filtered_items, max_weight)
         
         # Approach 2: Hybrid (0/1 for packed + Fractional for bulk)
-        hybrid_result = self.hybrid_knapsack_with_backtrack(items, max_weight)
+        hybrid_result = self.hybrid_knapsack_with_backtrack(filtered_items, max_weight)
         
         # Additional algorithms for reference
-        greedy_result = self.greedy_knapsack_with_backtrack(items, max_weight)
+        greedy_result = self.greedy_knapsack_with_backtrack(filtered_items, max_weight)
         
         return {
             'comparison': {

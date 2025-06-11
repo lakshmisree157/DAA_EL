@@ -19,6 +19,8 @@ def optimize_comparison():
         
         items = data.get('items')
         max_weight = data.get('max_weight')
+        max_transport_duration = data.get('max_transport_duration')
+        allowed_storage_types = data.get('allowed_storage_types')
         
         if not items or not isinstance(items, list):
             return jsonify({'error': 'Items must be a non-empty list'}), 400
@@ -27,7 +29,12 @@ def optimize_comparison():
             return jsonify({'error': 'max_weight must be a positive number'}), 400
         
         optimizer = KnapsackOptimizer()
-        results = optimizer.optimize_comparison(items, max_weight)
+        results = optimizer.optimize_comparison(
+            items,
+            max_weight,
+            max_transport_duration=max_transport_duration,
+            allowed_storage_types=allowed_storage_types
+        )
         
         return jsonify({
             'success': True,

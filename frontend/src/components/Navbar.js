@@ -65,6 +65,16 @@ const Navbar = () => {
             >
               Optimize
             </Link>
+            <Link 
+              to="/hybrid-knapsack" 
+              className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
+                location.pathname === '/hybrid-knapsack' 
+                  ? 'bg-primary-100 text-primary-700 shadow-soft' 
+                  : 'text-gray-600 hover:text-primary-600 hover:bg-primary-50'
+              }`}
+            >
+              About (Hybrid Knapsack)
+            </Link>
             <button
               className="px-4 py-2 rounded-lg font-medium transition-all duration-200 bg-gradient-to-r from-primary-500 to-primary-600 text-white hover:from-primary-600 hover:to-primary-700 shadow-soft ml-2"
               onClick={openPrevModal}

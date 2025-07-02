@@ -53,6 +53,10 @@ class KnapsackOptimizer:
         # Additional algorithms for reference
         greedy_result = self.greedy_knapsack_with_backtrack(filtered_items, max_weight)
         
+        # Attach input_items to each result for frontend navigation
+        for result in [brute_force_result, hybrid_result, greedy_result]:
+            result['input_items'] = filtered_items.copy()
+        
         return {
             'comparison': {
                 'brute_force': brute_force_result,
@@ -203,7 +207,9 @@ class KnapsackOptimizer:
                 'dp_table_size': f'{n+1}x{max_weight_int+1}',
                 'dp_filling_steps': dp_steps[-10:],  # Last 10 steps to avoid too much data
                 'backtrack_steps': backtrack_steps,
-                'final_dp_value': dp[n][max_weight_int]
+                'final_dp_value': dp[n][max_weight_int],
+                'dp_matrix': dp,  # Full DP table for visualization
+                'item_names': [item['name'] for item in items]  # Item names for row labels
             }
         }
 

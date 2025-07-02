@@ -4,6 +4,7 @@ import HomePage from './pages/HomePage';
 import OptimizePage from './pages/OptimizePage';
 import CargoOptimizerPage from './pages/CargoOptimizerPage';
 import ResultsPage from './pages/ResultsPage';
+import HybridKnapsackVisualizer from './pages/HybridKnapsackVisualizer';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/home" element={<HomePage />} />
         <Route path="/optimize" element={<OptimizePage />} />
         <Route path="/results" element={<ResultsPage />} />
+        <Route path="/hybrid-knapsack" element={<HybridKnapsackVisualizer />} />
       </Routes>
     </Router>
   );

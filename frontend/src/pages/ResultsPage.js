@@ -82,6 +82,15 @@ const ResultsPage = () => {
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <PDFExportButton results={results} maxWeight={maxWeight} />
           <button
+            onClick={() => navigate('/hybrid-knapsack', { state: { items: results[0]?.input_items || [], maxWeight } })}
+            className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-700 text-white rounded-xl font-semibold shadow-lg hover:from-blue-600 hover:to-blue-800 transition-all duration-300 transform hover:-translate-y-1"
+          >
+            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0zm6 0c0 5-9 9-9 9s-9-4-9-9a9 9 0 1118 0z" />
+            </svg>
+            Visualize
+          </button>
+          <button
             onClick={() => navigate('/optimize')}
             className="inline-flex items-center px-6 py-3 border-2 border-primary-200 text-primary-700 rounded-xl font-semibold hover:bg-primary-50 hover:border-primary-300 transition-all duration-300"
           >

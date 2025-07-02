@@ -40,7 +40,7 @@ const OptimizePage = () => {
       });
       const data = await response.json();
       if (data.results && data.results.comparison) {
-        const comparisonArray = Object.values(data.results.comparison);
+        const comparisonArray = Object.values(data.results.comparison).map(r => ({ ...r, input_items: items }));
         navigate('/results', { state: { results: comparisonArray, maxWeight } });
       } else {
         console.error('Backend response missing comparison key:', data);

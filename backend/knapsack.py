@@ -47,7 +47,7 @@ class KnapsackOptimizer:
         # Approach 1: Brute Force (all items treated as packed/indivisible)
         brute_force_result = self.brute_force_knapsack_with_backtrack(filtered_items, max_weight)
         
-        # Approach 2: Hybrid (0/1 for packed + Fractional for bulk)
+        # Approach 2: Hybrid (0/1 for packed items + Fractional for bulk)
         hybrid_result = self.hybrid_knapsack_with_backtrack(filtered_items, max_weight)
         
         # Additional algorithms for reference
@@ -454,7 +454,7 @@ class KnapsackOptimizer:
                 continue
 
             if item['weight'] <= remaining_weight:
-                # Take the whole item
+                # Take the whole item (both packed and bulk)
                 selected_items.append({
                     'name': item['name'],
                     'weight': item['weight'],
@@ -472,7 +472,7 @@ class KnapsackOptimizer:
                     'ratio': round(ratio, 3)
                 })
             elif item.get('is_bulk', False):
-                # Take fraction of bulk item
+                # Take fraction of bulk item only
                 fraction = remaining_weight / item['weight']
                 fractional_value = item['nutritional_value'] * fraction
                 selected_items.append({
@@ -492,13 +492,13 @@ class KnapsackOptimizer:
                 })
                 remaining_weight = 0
             else:
-                # Cannot take packed item
+                # Cannot take packed item (treat as 0/1)
                 not_selected_items.append(item)
                 processing_steps.append({
                     'step': i + 1,
                     'item': item['name'],
                     'action': 'rejected',
-                    'reason': 'Packed item too heavy'
+                    'reason': 'Packed item too heavy (0/1 constraint)'
                 })
 
         end_time = time.time()
@@ -513,7 +513,7 @@ class KnapsackOptimizer:
             'backtrack_info': {
                 'sorting_order': sorting_info,
                 'processing_steps': processing_steps,
-                'strategy': 'Sort by value/weight ratio, select greedily'
+                'strategy': 'Sort by value/weight ratio, select greedily (packed=0/1, bulk=fractional)'
             },
             'efficiency_remarks': 'Fast O(n log n) algorithm, not always optimal for 0/1 knapsack.'
         }

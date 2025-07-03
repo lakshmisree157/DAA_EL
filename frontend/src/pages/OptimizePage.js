@@ -9,7 +9,7 @@ const storageOptions = ['Dry', 'Cool', 'Refrigerated', 'Frozen', 'Ambient'];
 
 const OptimizePage = () => {
   const [items, setItems] = useState([]);
-  const [maxWeight, setMaxWeight] = useState(50);
+  const [maxWeight, setMaxWeight] = useState(35);
   const [maxTransportDuration, setMaxTransportDuration] = useState('');
   const [allowedStorageTypes, setAllowedStorageTypes] = useState([]);
   const [results, setResults] = useState(null);
@@ -96,7 +96,7 @@ const OptimizePage = () => {
                   onChange={(e) => setMaxWeight(parseFloat(e.target.value))}
                   className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-200 bg-white"
                   min="0"
-                  placeholder="50"
+                  placeholder="35"
                 />
                 <div className="absolute inset-y-0 right-0 flex items-center pr-3">
                   <span className="text-gray-400 text-sm">kg</span>

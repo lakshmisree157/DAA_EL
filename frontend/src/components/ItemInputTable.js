@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
 
 const defaultItems = [
-  { name: 'Rice', weight: 10, nutritional_value: 50, is_bulk: true, transport_duration: 5, storage_requirements: 'Dry' },
-  { name: 'Lentils', weight: 8, nutritional_value: 40, is_bulk: true, transport_duration: 4, storage_requirements: 'Dry' },
-  { name: 'Sealed Meal Pack 1', weight: 2, nutritional_value: 30, is_bulk: false, transport_duration: 2, storage_requirements: 'Cool' },
-  { name: 'Sealed Meal Pack 2', weight: 3, nutritional_value: 35, is_bulk: false, transport_duration: 3, storage_requirements: 'Cool' },
-  { name: 'Milk', weight: 5, nutritional_value: 20, is_bulk: false, transport_duration: 1, storage_requirements: 'Refrigerated' }
+  { name: 'Rice', weight: 20, nutritional_value: 70000, is_bulk: true, transport_duration: 5, storage_requirements: 'Dry' },
+  { name: 'Lentils', weight: 15, nutritional_value: 52500, is_bulk: true, transport_duration: 4, storage_requirements: 'Dry' },
+  { name: 'Energy Bar', weight: 8, nutritional_value: 40000, is_bulk: false, transport_duration: 3, storage_requirements: 'Dry' },
+  { name: 'Pasta', weight: 12, nutritional_value: 42000, is_bulk: true, transport_duration: 8, storage_requirements: 'Dry' },
+  { name: 'Protein Powder', weight: 6, nutritional_value: 24000, is_bulk: true, transport_duration: 6, storage_requirements: 'Dry' },
+  { name: 'Canned Meat', weight: 10, nutritional_value: 50000, is_bulk: false, transport_duration: 11, storage_requirements: 'Cool' },
+  { name: 'Dried Fruits', weight: 4, nutritional_value: 20000, is_bulk: true, transport_duration: 7, storage_requirements: 'Dry' }
 ];
 
 const ItemInputTable = ({ items, setItems }) => {
@@ -76,7 +78,7 @@ const ItemInputTable = ({ items, setItems }) => {
                     Weight (kg)
                   </th>
                   <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                    Nutritional Value
+                    Nutritional Value(cal)
                   </th>
                   <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                     Bulk Item
@@ -129,7 +131,7 @@ const ItemInputTable = ({ items, setItems }) => {
                         step="0.1"
                       />
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="px-8 py-4 whitespace-nowrap">
                       <select
                         value={item.is_bulk}
                         onChange={(e) => handleItemChange(index, 'is_bulk', e.target.value)}
@@ -206,7 +208,7 @@ const ItemInputTable = ({ items, setItems }) => {
               <div className="text-2xl font-bold text-accent-600">
                 {items.reduce((sum, item) => sum + (item.nutritional_value || 0), 0).toFixed(1)}
               </div>
-              <div className="text-sm text-gray-600">Total Nutritional Value</div>
+              <div className="text-sm text-gray-600">Total Nutritional Value(cal)</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-gray-600">
